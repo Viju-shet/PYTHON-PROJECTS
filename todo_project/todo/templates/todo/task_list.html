@@ -1,0 +1,81 @@
+<h1 style="text-align: center;">WELCOME</h1>
+<h2 style="text-align: center;">To-Do List</h2>
+
+<table align="center" style="border-collapse: collapse; border: 2px solid black;">
+    <thead>
+        <tr>
+            <th style="border: 1px solid black;">Serial No</th>
+            <th style="border: 1px solid black;">Task</th>
+            <th style="border: 1px solid black;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td style="text-align: center; border: 1px solid black;">{{ forloop.counter }}</td>
+            <td style="text-align: center; border: 1px solid black;">{{ task.title }}</td>
+            <td style="text-align: center; border: 1px solid black;">
+                <a href="{% url 'edit_task' task.id %}">Edit</a> | 
+                <a href="javascript:void(0);" onclick="confirmDelete('{% url 'delete_task' task.id %}');">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" style="text-align: center; border: 1px solid black;">No tasks yet!</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Button for adding a new task -->
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{% url 'add_task' %}">
+        <button style="padding: 10px 20px; font-size: 16px; cursor: pointer;">Add New Task</button>
+    </a>
+</div>
+
+<!-- Confirmation Script -->
+<script>
+    function confirmDelete(url) {
+        if (confirm('Are you sure you want to delete this task?')) {
+            window.location.href = url; // Redirect to the delete URL if confirmed
+        }
+    }
+</script>
+<style>
+    body {
+        background-color: lavender;
+    }
+
+    table {
+        width: 50%;
+        margin-top: 20px;
+        border-collapse: collapse;
+        background-color:white;
+    }
+
+    th {
+        border:
+        padding: 10px;
+        text-align: center;
+        font-size: 23px;
+        border-bottom: 3px solid black;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        font-size: 23px;
+    }
+
+    button {
+        background-color: #4CAF50; /* Green */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
